@@ -73,7 +73,8 @@ def run(config: Config, collectors: list[Collector], storage: Storage, notifier:
 
     fecha = ahora_local or datetime.now(ZoneInfo(config.zona_horaria))
     jobs = resultado.a_notificar
-    notifier.enviar(Mensaje(format_header(jobs, resultado.errores, fecha)))
+    notifier.enviar(Mensaje(format_header(jobs, resultado.errores, fecha,
+                                          revisadas=len(resultado.nuevas))))
     for job in jobs:
         notifier.enviar(Mensaje(format_job(job), url=job.raw.url))
         storage.marcar_notificada(job.huella)

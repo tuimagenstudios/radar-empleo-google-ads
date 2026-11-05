@@ -73,10 +73,12 @@ La utilidad del proyecto depende de esta sección, así que se valida antes de p
 | Alertas por correo de portales regionales: LinkedIn, Indeed, Computrabajo (casi toda Latinoamérica) | Lectura de Gmail mediante la API oficial con OAuth | Amplia; abarca los portales que no permiten extracción automatizada | **Alta** |
 | Alertas por correo de portales nacionales: Bumeran y ZonaJobs (Argentina), OCC Mundial (México), elempleo (Colombia), Laborum (Chile), Multitrabajos (Ecuador), Buscojobs (Uruguay), InfoJobs (España) | Igual que la fila anterior | Cubre cada mercado principal | Alta; se eligen en la etapa 0 |
 | InfoJobs | API oficial | España | Alta si el mercado objetivo incluye España |
-| Get on Board | API pública | Latinoamérica; pocas ofertas de marketing | Media |
+| Get on Board | API pública, sin cuenta | Latinoamérica; sobre todo tecnología, con pocas ofertas junior de marketing | **Integrada** (`radar/collectors/getonbrd.py`) |
 | Google Jobs | SerpAPI u otro servicio similar (plan gratuito limitado) | Agrega muchos portales | Media |
 | Páginas de empleo de agencias | RSS o páginas que permitan consulta automatizada | Puntual | Baja (etapa 3) |
 | Remotive | API pública | Mayormente anglosajona; poco aporte para este nicho | Descartada por ahora |
+
+> **Nota (5 de noviembre de 2026).** LinkedIn queda fuera: está bloqueado en Rusia, donde vive el usuario, y restringe las cuentas que entran por VPN. Se priorizan las fuentes que no requieren cuenta (Get on Board) y las alertas por correo de los demás portales.
 
 **Regla.** Solo se usan APIs oficiales, RSS, correos recibidos por el usuario o páginas cuyas condiciones de uso lo permitan.
 

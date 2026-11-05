@@ -53,6 +53,12 @@ def test_fuente_caida_no_frena_al_resto(config, tmp_path):  # RF-ERR-01, RF-ERR-
     assert estados == {"rota": "error", "muestra": "ok"}
 
 
+def test_cabecera_cuando_ninguna_encaja():
+    from radar.notifier import format_header
+    texto = format_header([], {}, FECHA, revisadas=185)
+    assert "Revisé 185 ofertas nuevas: ninguna encaja con tu perfil." in texto
+
+
 def test_html_escapado(evaluar):  # RF-NOT-04
     job = evaluar("SEM Junior <Remoto> & Co", "Google Ads", "Argentina")
     texto = format_job(job)

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from radar.collectors.base import Collector
+from radar.collectors.getonbrd import GetOnBoardCollector
 from radar.collectors.muestra import MuestraCollector
 from radar.config import Config
 
 TIPOS: dict[str, type[Collector]] = {
     "muestra": MuestraCollector,
+    "getonbrd": GetOnBoardCollector,
 }
 
 

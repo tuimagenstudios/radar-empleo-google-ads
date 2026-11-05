@@ -53,11 +53,12 @@ def classify(job: Job, config: Config) -> Job:
     fuertes = find_terms(texto, t["especialidad_fuerte"])
     debiles = find_terms(texto, t["especialidad_debil"])
     menciona_busqueda = bool(find_terms(texto, t["menciona_busqueda"]))
-    nivel = find_terms(texto, t["nivel_inicial"])
+    nivel_fuente = normalize(job.raw.nivel)
+    nivel = find_terms(f"{nivel_fuente} {texto}", t["nivel_inicial"])
     afines = find_terms(texto, t["experiencia_afin"])
-    # Solo en el título: la descripción suele nombrar a otros ("reportarás al Head of
-    # Marketing") y eso no dice nada del nivel del puesto.
-    descarte = find_terms(normalize(job.raw.titulo), t["descarte"])
+    # Solo en el título y en el nivel que informa la fuente: la descripción suele nombrar
+    # a otros ("reportarás al Head of Marketing") y eso no dice nada del nivel del puesto.
+    descarte = find_terms(f"{normalize(job.raw.titulo)} {nivel_fuente}", t["descarte"])
     job.terminos = [etiqueta(x) for x in fuertes + afines]
 
     def resultado(clase: Clasificacion, motivo: str, puntaje: int = 0) -> Job:

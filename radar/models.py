@@ -29,6 +29,8 @@ class RawJob:
     salario: str = ""
     id_externo: str = ""
     publicada: str = ""
+    # Nivel estructurado que informa la fuente ("Junior", "Senior"...), si lo tiene.
+    nivel: str = ""
 
 
 @dataclass

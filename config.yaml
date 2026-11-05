@@ -67,10 +67,19 @@ terminos:
     - lider de equipo
 
 fuentes:
-  # Fuente de ejemplo con ofertas ficticias, hasta que la etapa 0 elija las reales.
+  # Get on Board: API pública sin cuenta. Funciona desde cualquier país.
+  - tipo: getonbrd
+    nombre: getonbrd
+    # "sem" no se usa: el buscador la confunde con "Semi Senior".
+    consultas: [google ads, ppc, trafficker, paid media, performance marketing,
+                marketing digital]
+    dias_max: 30     # ignora ofertas publicadas hace más de 30 días
+    paginas_max: 2   # por consulta (50 ofertas por página)
+    activa: true
+  # Ofertas ficticias para probar el circuito (las pruebas automáticas usan esta).
   - tipo: muestra
     nombre: muestra
     ruta: data/muestra_ofertas.json
-    activa: true
+    activa: false
 
 base_de_datos: data/radar.sqlite

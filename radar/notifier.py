@@ -70,13 +70,15 @@ def format_job(job: Job) -> str:
     return "\n".join(lineas)[:MAX_CHARS]
 
 
-def format_header(jobs: list[Job], errores: dict[str, str], fecha: datetime) -> str:
+def format_header(jobs: list[Job], errores: dict[str, str], fecha: datetime,
+                  revisadas: int = 0) -> str:
     """Cabecera con etiqueta HUD de la marca (docs/marca.md)."""
     dia = f"{fecha.day} {_MESES[fecha.month - 1]}"
     estado = "FUENTES ONLINE" if not errores else f"{len(errores)} FUENTE(S) CON ERROR"
     if not jobs:
         hud = f"RADAR // {dia} · SIN NOVEDADES · {estado}"
-        cuerpo = "Sin ofertas nuevas hoy."
+        cuerpo = (f"Revisé {revisadas} ofertas nuevas: ninguna encaja con tu perfil."
+                  if revisadas else "Sin ofertas nuevas hoy.")
     else:
         verdes = sum(j.clasificacion == Clasificacion.ENCAJE for j in jobs)
         amarillas = len(jobs) - verdes

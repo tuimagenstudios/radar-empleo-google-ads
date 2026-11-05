@@ -14,7 +14,11 @@ ROOT = Path(__file__).resolve().parent.parent
 
 @pytest.fixture(scope="session")
 def config() -> Config:
-    return load_config(ROOT / "config.yaml")
+    """La configuración real, pero solo con la fuente de muestra (sin red)."""
+    cfg = load_config(ROOT / "config.yaml")
+    cfg.fuentes = [{"tipo": "muestra", "nombre": "muestra",
+                    "ruta": "data/muestra_ofertas.json", "activa": True}]
+    return cfg
 
 
 @pytest.fixture

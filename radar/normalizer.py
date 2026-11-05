@@ -61,20 +61,18 @@ def detect_paises_habilitados(texto: str, ubicacion: str) -> set[str]:
     """Países desde los que se puede tomar la oferta (RF-NOR-04).
 
     Devuelve {"*"} si está abierta a cualquier país y un conjunto vacío si la
-    oferta no lo dice. Nunca lo supone.
+    oferta no lo dice. Nunca lo supone. Una restricción explícita ("solo
+    residentes en Chile") tiene prioridad sobre "remoto desde cualquier lugar".
     """
-    if find_terms(texto, WORLDWIDE_TERMS):
-        return {"*"}
-    habilitados: set[str] = set()
-    if regions_in(ubicacion):
-        habilitados |= regions_in(ubicacion)
+    habilitados: set[str] = set(regions_in(ubicacion))
     for m in _REGION_ABIERTA.finditer(texto):
         habilitados |= regions_in(m.group(1))
     for m in _RESTRICCION.finditer(texto):
-        fragmento = m.group(1)
-        paises = countries_in(fragmento)
+        paises = countries_in(m.group(1))
         if paises:
             habilitados.add(paises[0])
+    if not habilitados and find_terms(texto, WORLDWIDE_TERMS):
+        return {"*"}
     return habilitados
 
 
