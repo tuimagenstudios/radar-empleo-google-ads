@@ -21,6 +21,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--config", default="config.yaml")
     parser.add_argument("--dry-run", action="store_true",
                         help="hace todo menos enviar a Telegram y escribir en la base")
+    parser.add_argument("--silencioso", action="store_true",
+                        help="no envía el resumen si no hay ofertas nuevas ni errores")
     args = parser.parse_args(argv)
 
     for stream in (sys.stdout, sys.stderr):
@@ -47,7 +49,8 @@ def main(argv: list[str] | None = None) -> int:
 
     storage = Storage.open(config.ruta(config.base_de_datos), dry_run=args.dry_run)
     try:
-        r = run(config, build_collectors(config), storage, notifier)
+        r = run(config, build_collectors(config), storage, notifier,
+                resumen=not args.silencioso)
     finally:
         storage.close()
     logging.info("Leídas %d · nuevas %d · duplicadas %d · notificadas %d · errores %d",

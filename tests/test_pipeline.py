@@ -37,6 +37,14 @@ def test_no_vuelve_a_notificar(config, tmp_path):  # RF-DED-03
     assert "Sin ofertas nuevas hoy." in notifier.enviados[0].texto  # RF-NOT-03
 
 
+def test_ejecucion_silenciosa_sin_novedades_no_escribe(config, tmp_path):  # RF-EJE-04
+    ejecutar(config, tmp_path)
+    storage = Storage.open(tmp_path / "radar.sqlite")
+    notifier = ConsoleNotifier()
+    run(config, build_collectors(config), storage, notifier, FECHA, resumen=False)
+    assert notifier.enviados == []
+
+
 class Rota(Collector):
     def fetch(self):
         raise ConnectionError("timeout")

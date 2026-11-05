@@ -37,7 +37,11 @@ class Resultado:
 
 
 def run(config: Config, collectors: list[Collector], storage: Storage, notifier: Notifier,
-        ahora_local: datetime | None = None) -> Resultado:
+        ahora_local: datetime | None = None, resumen: bool = True) -> Resultado:
+    """`resumen=False` es la ejecución silenciosa: solo escribe si hay ofertas o errores.
+
+    Así llega un único resumen por día aunque el radar corra dos veces (RF-EJE-04).
+    """
     resultado = Resultado()
     vistas: set[str] = set()
 
@@ -73,6 +77,8 @@ def run(config: Config, collectors: list[Collector], storage: Storage, notifier:
 
     fecha = ahora_local or datetime.now(ZoneInfo(config.zona_horaria))
     jobs = resultado.a_notificar
+    if not resumen and not jobs and not resultado.errores:
+        return resultado
     notifier.enviar(Mensaje(format_header(jobs, resultado.errores, fecha,
                                           revisadas=len(resultado.nuevas))))
     for job in jobs:
