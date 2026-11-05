@@ -97,7 +97,16 @@ Telegram no permite elegir colores ni tipografías. La marca se traslada así:
 Mentor creativo, compañero de ruta. Directa pero nunca fría, técnica con propósito, con una metáfora cuando suma.
 **Fuera de la marca:** lo genérico o corporativo vacío, las promesas sin sustento y los elogios exagerados.
 
-## Recursos pendientes
+## Recursos
 
-- [ ] **Logo** en SVG o PNG con fondo transparente. El Brand Kit todavía no lo tiene cargado.
-- [ ] Isotipo cuadrado para la foto de perfil del bot de Telegram (mínimo 512 × 512 px).
+| Recurso | Archivo | Uso |
+|---|---|---|
+| Logo de Tuimagen Studios (1254 × 1254, fondo oscuro) | [`assets/logo-tuimagenstudios.webp`](../assets/logo-tuimagenstudios.webp) | Firma en el README, el caso de estudio y el pie de la página de resultados |
+| Avatar del Radar: robot con radar y maletín (1254 × 1254) | [`assets/radar-bot-avatar.webp`](../assets/radar-bot-avatar.webp) | Imagen del proyecto en el README y en la página de resultados |
+| Foto de perfil del bot (640 × 640, JPG) | [`assets/telegram-foto-perfil.jpg`](../assets/telegram-foto-perfil.jpg) | Se carga en @BotFather con `/setuserpic` |
+
+**Jerarquía:** el avatar del Radar es la cara del producto; el logo de Tuimagen Studios es la firma del autor. Nunca aparecen del mismo tamaño en una pieza.
+
+### Pendiente
+
+- [ ] Logo en **SVG** o en PNG con **fondo transparente**. El logo actual tiene fondo oscuro: funciona sobre `deep-space`, pero no sobre otros fondos.
