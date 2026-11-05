@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Secretos (nunca al repositorio)
+.env
+credentials.json
+token.json
+*.pem
+
+# Datos locales
+*.sqlite
+*.db
+
+# Sistema
+.DS_Store
+Thumbs.db
