@@ -97,7 +97,7 @@ La utilidad del proyecto depende de esta sección, así que se valida antes de p
 | Especialidad débil | Paid media, performance, publicidad digital, medios pagos | Cuenta como especialidad solo si la descripción también menciona Google Ads |
 | Nivel inicial | Junior, jr, trainee, pasante, prácticas, asistente, sin experiencia, primer empleo | Requisito para 🟢 |
 | Experiencia afín | Campañas, palabras clave, conversiones, pujas, GA4, Merchant Center | Suma puntos y aparece en el motivo |
-| Descarte | Senior, sr, lead, head, director, gerente, responsable de equipo, más de 3 años obligatorios | Envía a 🔴 |
+| Descarte | Senior, sr, lead, head, director, gerente, responsable de equipo (solo en el **título**: la descripción suele nombrar a otros puestos, como "reportarás al Head of Marketing"); más años de experiencia que el máximo del perfil | Envía a 🔴 |
 
 ### Reglas
 

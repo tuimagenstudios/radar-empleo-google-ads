@@ -19,3 +19,9 @@ token.json
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Empaquetado
+*.egg-info/
+build/
+dist/
+.ruff_cache/

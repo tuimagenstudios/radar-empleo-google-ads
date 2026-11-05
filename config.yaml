@@ -1,0 +1,76 @@
+# Radar de Empleo Junior en Google Ads — configuración
+# Todo el perfil de búsqueda vive acá (RF-CFG-01). Los secretos NO: van en .env o en GitHub Secrets.
+
+perfil:
+  pais_base: AR               # ciudadanía, residencia legal y cuenta bancaria (RF-CFG-03)
+  experiencia_max_anios: 2    # hasta cuántos años de experiencia mínima se aceptan
+  zona_horaria: Europe/Moscow # dónde está físicamente el usuario (RF-EJE-06)
+
+# Mercados objetivo: países hispanohablantes excepto Estados Unidos y Puerto Rico (RF-CFG-02)
+mercados: [AR, BO, CL, CO, CR, CU, DO, EC, ES, GQ, GT, HN, MX, NI, PA, PE, PY, SV, UY, VE]
+
+terminos:
+  # Requisito para 🟢 (RF-CLA-02)
+  especialidad_fuerte:
+    - google ads
+    - adwords
+    - sem
+    - ppc
+    - paid search
+    - busqueda pagada
+    - trafficker digital
+    - trafficker
+  # Solo cuentan si la oferta también menciona búsqueda o Google (RF-CLA-04)
+  especialidad_debil:
+    - paid media
+    - medios pagos
+    - performance
+    - pauta digital
+    - publicidad digital
+  menciona_busqueda:
+    - google
+    - busqueda
+    - search
+  nivel_inicial:
+    - junior
+    - jr
+    - trainee
+    - pasante
+    - pasantia
+    - practicas
+    - practicante
+    - asistente
+    - sin experiencia
+    - primer empleo
+  experiencia_afin:
+    - campanas
+    - palabras clave
+    - keywords
+    - conversiones
+    - pujas
+    - ga4
+    - google analytics
+    - merchant center
+    - optimizacion
+    - google tag manager
+  descarte:
+    - senior
+    - sr
+    - semi senior
+    - ssr
+    - lead
+    - head
+    - director
+    - directora
+    - gerente
+    - responsable de equipo
+    - lider de equipo
+
+fuentes:
+  # Fuente de ejemplo con ofertas ficticias, hasta que la etapa 0 elija las reales.
+  - tipo: muestra
+    nombre: muestra
+    ruta: data/muestra_ofertas.json
+    activa: true
+
+base_de_datos: data/radar.sqlite

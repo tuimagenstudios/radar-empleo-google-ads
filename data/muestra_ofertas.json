@@ -1,0 +1,85 @@
+{
+  "_nota": "Ofertas FICTICIAS para probar el circuito completo. Empresas y enlaces inventados (example.com).",
+  "ofertas": [
+    {
+      "titulo": "Analista SEM Junior",
+      "empresa": "Agencia Ejemplo",
+      "ubicacion": "Buenos Aires, Argentina",
+      "url": "https://example.com/ofertas/1",
+      "descripcion": "Buscamos un perfil junior para gestionar campañas de Google Ads para clientes de la agencia. Trabajo 100% remoto. Experiencia de 0 a 1 años. Conocimientos de GA4 y palabras clave.",
+      "salario": ""
+    },
+    {
+      "titulo": "Trafficker Digital Jr",
+      "empresa": "Estudio Demo",
+      "ubicacion": "Remoto LATAM",
+      "url": "https://example.com/ofertas/2",
+      "descripcion": "Sumate como trafficker digital para optimizar campañas de búsqueda en Google Ads y medir conversiones. Remoto para toda Latinoamérica.",
+      "salario": "USD 700"
+    },
+    {
+      "titulo": "Especialista PPC Junior",
+      "empresa": "Retail Ficticio SL",
+      "ubicacion": "Madrid, España",
+      "url": "https://example.com/ofertas/3",
+      "descripcion": "Teletrabajo. Solo residentes en España. Gestión de campañas PPC en Google Ads y Merchant Center. Al menos 1 año de experiencia.",
+      "salario": "24.000 EUR"
+    },
+    {
+      "titulo": "Paid Media Junior (Meta y TikTok)",
+      "empresa": "Social Prueba",
+      "ubicacion": "Bogotá, Colombia",
+      "url": "https://example.com/ofertas/4",
+      "descripcion": "Gestión de pauta en Meta Ads y TikTok Ads para marcas de consumo. Remoto.",
+      "salario": ""
+    },
+    {
+      "titulo": "SEM Senior Manager",
+      "empresa": "Grupo Muestra",
+      "ubicacion": "Ciudad de México",
+      "url": "https://example.com/ofertas/5",
+      "descripcion": "Liderarás el equipo de búsqueda pagada. Más de 5 años de experiencia en Google Ads.",
+      "salario": ""
+    },
+    {
+      "titulo": "Asistente de Marketing Digital",
+      "empresa": "Clínica Ejemplar",
+      "ubicacion": "Lima, Perú",
+      "url": "https://example.com/ofertas/6",
+      "descripcion": "Trabajo presencial en nuestras oficinas. Apoyo en campañas de Google Ads y redes sociales. 1 año de experiencia.",
+      "salario": ""
+    },
+    {
+      "titulo": "Google Ads Specialist",
+      "empresa": "Example Corp",
+      "ubicacion": "Miami, FL",
+      "url": "https://example.com/ofertas/7",
+      "descripcion": "We are looking for a Google Ads specialist to join our team. You will manage our search campaigns and report to the marketing director.",
+      "salario": ""
+    },
+    {
+      "titulo": "Analista SEM Jr (Remoto)",
+      "empresa": "Agencia Ejemplo S.A.",
+      "ubicacion": "Argentina",
+      "url": "https://example.com/ofertas/8",
+      "descripcion": "Misma oferta que la 1, publicada en otro portal. Campañas de Google Ads.",
+      "salario": ""
+    },
+    {
+      "titulo": "Analista de Google Ads",
+      "empresa": "Consultora Modelo",
+      "ubicacion": "Remoto",
+      "url": "https://example.com/ofertas/9",
+      "descripcion": "Trabajá desde cualquier país. Mínimo 3 años de experiencia gestionando cuentas de Google Ads.",
+      "salario": ""
+    },
+    {
+      "titulo": "Ejecutivo de cuentas Google Ads Junior",
+      "empresa": "Agencia Inventada",
+      "ubicacion": "Remoto",
+      "url": "https://example.com/ofertas/10",
+      "descripcion": "Buscamos un ejecutivo junior para cuentas de Google Ads. Modalidad remota.",
+      "salario": ""
+    }
+  ]
+}

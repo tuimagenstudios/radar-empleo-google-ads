@@ -8,7 +8,31 @@
 
 Bot que busca ofertas de empleo junior en publicidad de búsqueda (Google Ads, SEM, PPC) en el mercado hispanohablante, las clasifica según el perfil y envía las mejores a Telegram.
 
-> 🚧 En desarrollo · Etapa 0: validación de fuentes.
+[![CI](https://github.com/tuimagenstudios/radar-empleo-google-ads/actions/workflows/ci.yml/badge.svg)](https://github.com/tuimagenstudios/radar-empleo-google-ads/actions/workflows/ci.yml)
+
+> 🚧 En desarrollo · Etapa 0 (validación de fuentes) en curso · Núcleo de la etapa 1 listo y probado con ofertas ficticias.
+
+## Cómo funciona
+
+```
+Fuentes → Normalizador → Deduplicador → Clasificador 🟢 🟡 🔴 → SQLite → Telegram
+```
+
+- **Normalizador:** detecta el país (por nombre, ciudad o gentilicio), la modalidad, los años de experiencia y los países desde los que se puede tomar la oferta. Si la oferta no lo dice, lo marca como "sin especificar" y nunca lo supone.
+- **Clasificador:** usa reglas transparentes definidas en [`config.yaml`](config.yaml). Cada oferta lleva el motivo de su clasificación.
+- **Deduplicador:** reconoce la misma oferta publicada en varios portales.
+
+## Probarlo en local
+
+```bash
+python -m venv .venv
+.venv/Scripts/activate      # en Linux o macOS: source .venv/bin/activate
+pip install -e ".[dev]"
+python -m radar --dry-run   # muestra en consola los avisos que enviaría
+pytest                      # pruebas
+```
+
+Para enviar a Telegram de verdad, copiá `.env.example` como `.env`, completá el token y el chat ID, y ejecutá `python -m radar`.
 
 ## Documentación
 
