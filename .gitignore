@@ -25,3 +25,6 @@ Thumbs.db
 build/
 dist/
 .ruff_cache/
+
+# Credenciales OAuth descargadas de Google Cloud
+client_secret*.json
