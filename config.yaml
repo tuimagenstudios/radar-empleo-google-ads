@@ -76,14 +76,16 @@ fuentes:
     dias_max: 30     # ignora ofertas publicadas hace más de 30 días
     paginas_max: 2   # por consulta (50 ofertas por página)
     activa: true
-  # Adzuna: API oficial (España y México). Se activa sola cuando existen
-  # ADZUNA_APP_ID y ADZUNA_APP_KEY en .env o en GitHub Secrets.
+  # Adzuna: API oficial (España y México). La cuenta gratuita trae solo 25
+  # consultas de prueba; el uso continuo cuesta £8/mes. Queda APAGADA en la
+  # ejecución programada hasta decidir si vale la pena (cada corrida gasta
+  # paises × consultas = 4 consultas).
   - tipo: adzuna
     nombre: adzuna
     paises: [es, mx]
-    consultas: [google ads, sem, ppc, trafficker]
+    consultas: [google ads, trafficker]
     dias_max: 30
-    activa: true
+    activa: false
   # Ofertas ficticias para probar el circuito (las pruebas automáticas usan esta).
   - tipo: muestra
     nombre: muestra
