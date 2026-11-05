@@ -9,6 +9,9 @@ from radar.models import RawJob
 
 
 class Collector(ABC):
+    # Variables de entorno que necesita la fuente. Si falta alguna, se omite sin error.
+    requiere_env: tuple[str, ...] = ()
+
     def __init__(self, fuente: dict, config: Config):
         self.fuente = fuente
         self.config = config

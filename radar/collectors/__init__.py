@@ -2,14 +2,21 @@
 
 from __future__ import annotations
 
+import logging
+import os
+
+from radar.collectors.adzuna import AdzunaCollector
 from radar.collectors.base import Collector
 from radar.collectors.getonbrd import GetOnBoardCollector
 from radar.collectors.muestra import MuestraCollector
 from radar.config import Config
 
+log = logging.getLogger("radar")
+
 TIPOS: dict[str, type[Collector]] = {
     "muestra": MuestraCollector,
     "getonbrd": GetOnBoardCollector,
+    "adzuna": AdzunaCollector,
 }
 
 
@@ -21,6 +28,11 @@ def build_collectors(config: Config) -> list[Collector]:
         tipo = fuente.get("tipo")
         if tipo not in TIPOS:
             raise ValueError(f"Tipo de fuente desconocido: {tipo!r}")
+        faltan = [v for v in TIPOS[tipo].requiere_env if not os.getenv(v)]
+        if faltan:
+            log.warning("Fuente %s omitida: faltan %s", fuente.get("nombre", tipo),
+                        ", ".join(faltan))
+            continue
         collectors.append(TIPOS[tipo](fuente, config))
     return collectors
 
