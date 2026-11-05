@@ -9,6 +9,7 @@ Bot que busca ofertas de empleo junior en publicidad de búsqueda (Google Ads, S
 - [Documento de diseño](docs/diseno-radar-empleo-google-ads.md)
 - [Requisitos](docs/requisitos-radar-empleo.md)
 - [Guía de la etapa 0](docs/etapa-0-guia.md)
+- [Identidad visual](docs/marca.md)
 
 ## Licencia
 
