@@ -9,14 +9,23 @@
 Bot que busca ofertas de empleo junior en publicidad de búsqueda (Google Ads, SEM, PPC) en el mercado hispanohablante, las clasifica según el perfil y envía las mejores a Telegram.
 
 [![CI](https://github.com/tuimagenstudios/radar-empleo-google-ads/actions/workflows/ci.yml/badge.svg)](https://github.com/tuimagenstudios/radar-empleo-google-ads/actions/workflows/ci.yml)
+[![Radar](https://github.com/tuimagenstudios/radar-empleo-google-ads/actions/workflows/radar.yml/badge.svg)](https://github.com/tuimagenstudios/radar-empleo-google-ads/actions/workflows/radar.yml)
 
-> 🚧 En desarrollo · Etapa 0 (validación de fuentes) en curso · Núcleo de la etapa 1 listo y probado con ofertas ficticias.
+> 🟢 **En funcionamiento.** Corre solo dos veces por día en GitHub Actions y envía los avisos a Telegram. Etapa 2 en curso: sumar fuentes.
 
 ## Cómo funciona
 
 ```
 Fuentes → Normalizador → Deduplicador → Clasificador 🟢 🟡 🔴 → SQLite → Telegram
 ```
+
+| Fuente | Acceso | Cobertura | Estado |
+|---|---|---|---|
+| [Get on Board](https://www.getonbrd.com) | API pública, sin cuenta | Latinoamérica | ✅ Activa |
+| [Adzuna](https://developer.adzuna.com) | API oficial con clave gratuita | España y México | ⏳ Lista, se activa al cargar la clave |
+| Alertas por correo (Computrabajo, Bumeran…) | Gmail API | Latinoamérica | 🔜 Próxima |
+
+**Cuándo escribe:** a las 06:00 UTC envía el resumen del día, siempre. A las 18:00 UTC hace una revisión silenciosa: solo escribe si hay ofertas nuevas o falla una fuente. La base de ofertas vistas se guarda en la rama [`datos`](../../tree/datos), así nunca avisa dos veces de la misma.
 
 - **Normalizador:** detecta el país (por nombre, ciudad o gentilicio), la modalidad, los años de experiencia y los países desde los que se puede tomar la oferta. Si la oferta no lo dice, lo marca como "sin especificar" y nunca lo supone.
 - **Clasificador:** usa reglas transparentes definidas en [`config.yaml`](config.yaml). Cada oferta lleva el motivo de su clasificación.
