@@ -7,7 +7,10 @@ perfil:
   zona_horaria: Europe/Moscow # dónde está físicamente el usuario (RF-EJE-06)
 
 # Mercados objetivo: países hispanohablantes excepto Estados Unidos y Puerto Rico (RF-CFG-02)
-mercados: [AR, BO, CL, CO, CR, CU, DO, EC, ES, GQ, GT, HN, MX, NI, PA, PE, PY, SV, UY, VE]
+# Desde el 5/11/2026: solo Argentina. Igual entran las ofertas remotas abiertas a
+# Argentina (LATAM o cualquier país). Para volver a todo el mercado hispanohablante:
+# [AR, BO, CL, CO, CR, CU, DO, EC, ES, GQ, GT, HN, MX, NI, PA, PE, PY, SV, UY, VE]
+mercados: [AR]
 
 terminos:
   # Requisito para 🟢 (RF-CLA-02)
@@ -75,6 +78,14 @@ fuentes:
                 marketing digital]
     dias_max: 30     # ignora ofertas publicadas hace más de 30 días
     paginas_max: 2   # por consulta (50 ofertas por página)
+    activa: true
+  # Alertas por correo de portales argentinos, leídas de Gmail en modo solo lectura.
+  # Se activa sola cuando existen GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET y
+  # GMAIL_REFRESH_TOKEN (ver docs/guia-gmail.md).
+  - tipo: gmail
+    nombre: alertas
+    remitentes: [bumeran.com.ar, zonajobs.com.ar, computrabajo.com, indeed.com]
+    dias: 3          # lee las alertas de los últimos 3 días
     activa: true
   # Adzuna: API oficial (España y México). La cuenta gratuita trae solo 25
   # consultas de prueba; el uso continuo cuesta £8/mes. Queda APAGADA en la

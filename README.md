@@ -4,7 +4,7 @@
 
 # Radar de Empleo Junior en Google Ads
 
-`RADAR // GOOGLE ADS · JUNIOR · LATAM + ES`
+`RADAR // GOOGLE ADS · JUNIOR · ARGENTINA + REMOTO`
 
 Bot que busca ofertas de empleo junior en publicidad de búsqueda (Google Ads, SEM, PPC) en el mercado hispanohablante, las clasifica según el perfil y envía las mejores a Telegram.
 
@@ -23,7 +23,7 @@ Fuentes → Normalizador → Deduplicador → Clasificador 🟢 🟡 🔴 → SQ
 |---|---|---|---|
 | [Get on Board](https://www.getonbrd.com) | API pública, sin cuenta | Latinoamérica | ✅ Activa |
 | [Adzuna](https://developer.adzuna.com) | API oficial (25 consultas de prueba; luego £8/mes) | España y México | 🧪 Programada, en evaluación |
-| Alertas por correo (Computrabajo, Bumeran…) | Gmail API | Latinoamérica | 🔜 Próxima |
+| Alertas por correo (Bumeran, ZonaJobs) | Gmail API, solo lectura | Argentina | 🔧 Lector listo; faltan las alertas y el permiso ([guía](docs/guia-gmail.md)) |
 
 **Cuándo escribe:** a las 06:00 UTC envía el resumen del día, siempre. A las 18:00 UTC hace una revisión silenciosa: solo escribe si hay ofertas nuevas o falla una fuente. La base de ofertas vistas se guarda en la rama [`datos`](../../tree/datos), así nunca avisa dos veces de la misma.
 

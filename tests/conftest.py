@@ -18,6 +18,10 @@ def config() -> Config:
     cfg = load_config(ROOT / "config.yaml")
     cfg.fuentes = [{"tipo": "muestra", "nombre": "muestra",
                     "ruta": "data/muestra_ofertas.json", "activa": True}]
+    # Las pruebas fijan el mercado hispanohablante completo para no depender de la
+    # configuración del momento; test_mercado_argentina.py prueba el modo "solo AR".
+    cfg.mercados = {"AR", "BO", "CL", "CO", "CR", "CU", "DO", "EC", "ES", "GQ", "GT", "HN",
+                    "MX", "NI", "PA", "PE", "PY", "SV", "UY", "VE"}
     return cfg
 
 
