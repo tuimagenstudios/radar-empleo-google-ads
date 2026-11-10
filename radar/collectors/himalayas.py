@@ -42,16 +42,25 @@ def codigo_pais(nombre: str) -> str | None:
     return next((c.code for c in BY_CODE.values() if c.name.lower() == clave), None)
 
 
-def ubicacion(restricciones: list[str], pais_base: str) -> str:
-    """Traduce la lista de países habilitados a un texto que entiende el normalizador."""
+def paises(restricciones: list[str]) -> tuple[str, ...]:
+    """Códigos de los países habilitados; ("*",) si no hay restricción.
+
+    Los países que el radar no conoce (Brasil, Egipto...) se omiten.
+    """
     if not restricciones:
-        return "Remoto 100%, desde cualquier lugar"
+        return ("*",)
     codigos = {c for c in map(codigo_pais, restricciones) if c}
     if len(codigos & LATAM) >= _MINIMO_LATAM:
+        codigos |= LATAM
+    return tuple(sorted(codigos))
+
+
+def ubicacion(restricciones: list[str]) -> str:
+    if not restricciones:
+        return "Remoto 100%, desde cualquier lugar"
+    if len(set(paises(restricciones)) & LATAM) >= _MINIMO_LATAM:
         return "Remoto LATAM"
-    if pais_base in codigos:
-        return f"Remoto, solo residentes en {BY_CODE[pais_base].name}"
-    return f"Remoto, solo residentes en {restricciones[0]}"
+    return "Remoto · " + ", ".join(restricciones)
 
 
 def nivel(seniority: list[str]) -> str:
@@ -76,7 +85,8 @@ def salario(j: dict) -> str:
     return f"{moneda} {monto} / {periodo}" if periodo else f"{moneda} {monto}"
 
 
-def a_raw_job(j: dict, fuente: str, pais_base: str) -> RawJob:
+def a_raw_job(j: dict, fuente: str) -> RawJob:
+    restricciones = j.get("locationRestrictions") or []
     publicada = ""
     if j.get("pubDate"):
         publicada = datetime.fromtimestamp(int(j["pubDate"]), UTC).isoformat()
@@ -85,12 +95,13 @@ def a_raw_job(j: dict, fuente: str, pais_base: str) -> RawJob:
         titulo=(j.get("title") or "").strip(),
         url=j.get("guid") or j.get("applicationLink") or "",
         empresa=(j.get("companyName") or "").strip(),
-        ubicacion=ubicacion(j.get("locationRestrictions") or [], pais_base),
+        ubicacion=ubicacion(restricciones),
         descripcion=html_a_texto(j.get("description") or j.get("excerpt")),
         salario=salario(j),
         id_externo=j.get("guid") or "",
         publicada=publicada,
         nivel=nivel(j.get("seniority") or []),
+        paises=paises(restricciones),
     )
 
 
@@ -140,5 +151,5 @@ class HimalayasCollector(Collector):
                 publicada = j.get("pubDate")
                 if publicada and datetime.fromtimestamp(int(publicada), UTC) < limite:
                     continue
-                vistos[clave] = a_raw_job(j, self.nombre, self.config.pais_base)
+                vistos[clave] = a_raw_job(j, self.nombre)
         return list(vistos.values())

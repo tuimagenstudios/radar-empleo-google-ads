@@ -13,6 +13,7 @@ TERM_KEYS = (
     "especialidad_fuerte", "especialidad_debil", "menciona_busqueda",
     "nivel_inicial", "experiencia_afin", "descarte",
 )
+TERM_KEYS_OPCIONALES = ("descarte_descripcion",)
 
 
 class ConfigError(ValueError):
@@ -63,7 +64,8 @@ def load_config(path: str | Path) -> Config:
         experiencia_max_anios=int(perfil["experiencia_max_anios"]),
         zona_horaria=str(perfil["zona_horaria"]),
         mercados=mercados,
-        terminos={k: [str(t) for t in terminos[k]] for k in TERM_KEYS},
+        terminos={k: [str(t) for t in terminos.get(k) or []]
+                  for k in (*TERM_KEYS, *TERM_KEYS_OPCIONALES)},
         fuentes=list(data.get("fuentes") or []),
         base_de_datos=str(data.get("base_de_datos", "data/radar.sqlite")),
         raiz=path.parent.resolve(),

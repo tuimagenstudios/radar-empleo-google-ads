@@ -68,6 +68,19 @@ terminos:
     - gerente
     - responsable de equipo
     - lider de equipo
+    - po
+    - product owner
+    - jefe
+    - jefa
+  # Se buscan en la descripción: frases que solo aparecen en puestos de conducción.
+  descarte_descripcion:
+    - experiencia liderando
+    - liderando equipo
+    - liderando equipos
+    - liderar un equipo
+    - liderar al equipo
+    - personas a cargo
+    - equipo a cargo
 
 fuentes:
   # Get on Board: API pública sin cuenta. Funciona desde cualquier país.

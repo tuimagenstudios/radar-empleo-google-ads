@@ -73,6 +73,10 @@ def classify(job: Job, config: Config) -> Job:
         return resultado(Clasificacion.DESCARTE, "oferta en otro idioma")
     if descarte:
         return resultado(Clasificacion.DESCARTE, f"nivel fuera de perfil ({', '.join(descarte)})")
+    # Frases de la descripción que solo aparecen en puestos de conducción.
+    liderazgo = find_terms(texto, t.get("descarte_descripcion", []))
+    if liderazgo:
+        return resultado(Clasificacion.DESCARTE, f"puesto de liderazgo ({liderazgo[0]})")
     max_anios = config.experiencia_max_anios
     if job.exp_min is not None and job.exp_min > max_anios:
         return resultado(Clasificacion.DESCARTE, f"pide {job.exp_min}+ años de experiencia")

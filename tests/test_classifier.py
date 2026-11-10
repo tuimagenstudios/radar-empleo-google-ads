@@ -78,3 +78,18 @@ def test_terminos_regionales(evaluar):  # RF-CLA-02
 def test_todas_tienen_motivo(evaluar):  # RF-CLA-06
     for titulo in ("Analista SEM Junior", "SEM Senior", "Contador", "PPC Jr"):
         assert evaluar(titulo).motivo
+
+
+def test_puesto_de_liderazgo_se_descarta(evaluar):
+    """El aviso real que pasó el filtro el 10/11/2026: PO Paid Media, Astra Group."""
+    po = evaluar("PO Paid Media", "Expertise en SEO y SEM. 100% remoto LATAM.")
+    assert po.clasificacion == C.DESCARTE and "po" in po.motivo
+    lider = evaluar("Analista de Paid Media", "Campañas de Google Ads. Experiencia liderando "
+                    "equipo de adquisición. Remoto LATAM.")
+    assert lider.clasificacion == C.DESCARTE and "liderazgo" in lider.motivo
+
+
+def test_mencionar_al_lider_no_descarta(evaluar):
+    job = evaluar("Analista SEM Junior", "Campañas de Google Ads. Reportarás al líder del "
+                  "equipo de performance. Remoto LATAM.")
+    assert job.clasificacion == C.ENCAJE

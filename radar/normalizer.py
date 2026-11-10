@@ -90,7 +90,8 @@ def normalize_job(raw: RawJob, config: Config) -> Job:
         raw=raw,
         pais=pais,
         modalidad=detect_modalidad(texto),
-        paises_habilitados=detect_paises_habilitados(texto, ubicacion),
+        # Si la fuente informa los países, valen más que lo deducido del texto.
+        paises_habilitados=set(raw.paises) or detect_paises_habilitados(texto, ubicacion),
         idioma=detect_language(f"{titulo} {descripcion}"),
     )
     job.exp_min, job.exp_max = detect_experiencia(texto)

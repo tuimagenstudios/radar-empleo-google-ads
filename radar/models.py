@@ -31,6 +31,9 @@ class RawJob:
     publicada: str = ""
     # Nivel estructurado que informa la fuente ("Junior", "Senior"...), si lo tiene.
     nivel: str = ""
+    # Países habilitados que informa la fuente, como códigos ("*" = cualquiera).
+    # Vacío = la fuente no lo informa y el normalizador lo deduce del texto.
+    paises: tuple[str, ...] = ()
 
 
 @dataclass

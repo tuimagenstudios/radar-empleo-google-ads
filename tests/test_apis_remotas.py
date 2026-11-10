@@ -56,7 +56,7 @@ def oferta_hima(guid, titulo="Analista SEM Junior", restricciones=(), seniority=
 
 
 def test_himalayas_mapea_campos():
-    raw = hima.a_raw_job(oferta_hima("https://himalayas.app/x"), "himalayas", "AR")
+    raw = hima.a_raw_job(oferta_hima("https://himalayas.app/x"), "himalayas")
     assert raw.url == "https://himalayas.app/x"  # sin parámetros de rastreo
     assert raw.empresa == "Agencia Ficticia"
     assert raw.nivel == "Junior"
@@ -65,17 +65,17 @@ def test_himalayas_mapea_campos():
 
 
 def test_himalayas_ubicacion(config):
-    sin_limite = hima.a_raw_job(oferta_hima("a"), "h", "AR")
+    sin_limite = hima.a_raw_job(oferta_hima("a"), "h")
     assert evaluar(sin_limite, config).paises_habilitados == {"*"}
-    latam = evaluar(hima.a_raw_job(oferta_hima("b", restricciones=LATAM_EN), "h", "AR"), config)
+    latam = evaluar(hima.a_raw_job(oferta_hima("b", restricciones=LATAM_EN), "h"), config)
     assert "AR" in latam.paises_habilitados and latam.clasificacion == C.ENCAJE
-    solo_ar = hima.a_raw_job(oferta_hima("c", restricciones=["Argentina", "Egypt"]), "h", "AR")
+    solo_ar = hima.a_raw_job(oferta_hima("c", restricciones=["Argentina", "Egypt"]), "h")
     assert evaluar(solo_ar, config).paises_habilitados == {"AR"}
 
 
 def test_himalayas_nivel_mas_alto_descarta(config):
     raw = hima.a_raw_job(oferta_hima("d", "Especialista SEM", seniority=["Senior", "Manager"]),
-                         "h", "AR")
+                         "h")
     assert raw.nivel == "Senior"
     assert evaluar(raw, config).clasificacion == C.DESCARTE
     assert hima.nivel(["Mid-level"]) == ""
@@ -168,3 +168,19 @@ def test_himalayas_conserva_lo_leido_si_corta_por_limite(config):
     fuente = {"tipo": "himalayas", "nombre": "himalayas", "consultas": ["google ads", "ppc"]}
     jobs = hima.HimalayasCollector(fuente, config, session=sesion, pausa=0).fetch()
     assert [j.id_externo for j in jobs] == ["a"]
+
+
+def test_himalayas_lista_corta_muestra_todos_los_paises(config):
+    from radar.notifier import paises_txt
+    raw = hima.a_raw_job(oferta_hima("e", restricciones=["Peru", "Argentina", "Brazil",
+                                                         "Mexico"]), "h")
+    job = evaluar(raw, config)
+    assert job.paises_habilitados == {"AR", "MX", "PE"}  # Brasil no está en el diccionario
+    assert paises_txt(job) == "Solo Argentina, México, Perú"
+
+
+def test_himalayas_sin_el_pais_base_no_encaja(config):
+    from dataclasses import replace
+    solo_ar = replace(config, mercados={"AR"})
+    raw = hima.a_raw_job(oferta_hima("f", restricciones=["Colombia"]), "h")
+    assert classify(normalize_job(raw, solo_ar), solo_ar).clasificacion == C.DESCARTE
