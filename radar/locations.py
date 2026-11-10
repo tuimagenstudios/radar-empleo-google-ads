@@ -70,6 +70,7 @@ REGIONS: dict[str, frozenset[str]] = {
     "latam": LATAM,
     "latinoamerica": LATAM,
     "america latina": LATAM,
+    "latin america": LATAM,  # los portales en inglés lo escriben así
     "hispanoamerica": LATAM,
     "sudamerica": frozenset({"AR", "BO", "CL", "CO", "EC", "PE", "PY", "UY", "VE"}),
     "cono sur": CONO_SUR,

@@ -22,8 +22,11 @@ Fuentes → Normalizador → Deduplicador → Clasificador 🟢 🟡 🔴 → SQ
 | Fuente | Acceso | Cobertura | Estado |
 |---|---|---|---|
 | [Get on Board](https://www.getonbrd.com) | API pública, sin cuenta | Latinoamérica | ✅ Activa |
+| [Himalayas](https://himalayas.app/api) | API pública, sin cuenta | Remoto, filtrado por país del candidato | ✅ Activa |
+| [Jobicy](https://jobicy.com/jobs-rss-feed) | API pública, sin cuenta | Remoto LATAM y Argentina | ✅ Activa |
+| [Remotive](https://remotive.com/remote-jobs/api) | API pública, sin cuenta | Remoto global | ✅ Activa |
 | [Adzuna](https://developer.adzuna.com) | API oficial (25 consultas de prueba; luego £8/mes) | España y México | 🧪 Programada, en evaluación |
-| Alertas por correo (Bumeran, ZonaJobs) | Gmail API, solo lectura | Argentina | 🔧 Lector listo; faltan las alertas y el permiso ([guía](docs/guia-gmail.md)) |
+| Alertas por correo (Bumeran, ZonaJobs, Computrabajo, Workana) | Gmail API, solo lectura | Argentina | 🔧 Lector listo; faltan las alertas y el permiso ([guía](docs/guia-gmail.md)) |
 
 **Cuándo escribe:** a las 06:00 UTC envía el resumen del día, siempre. A las 18:00 UTC hace una revisión silenciosa: solo escribe si hay ofertas nuevas o falla una fuente. La base de ofertas vistas se guarda en la rama [`datos`](../../tree/datos), así nunca avisa dos veces de la misma.
 

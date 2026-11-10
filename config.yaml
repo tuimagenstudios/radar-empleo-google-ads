@@ -79,12 +79,38 @@ fuentes:
     dias_max: 30     # ignora ofertas publicadas hace más de 30 días
     paginas_max: 2   # por consulta (50 ofertas por página)
     activa: true
+  # Himalayas: API pública sin cuenta. Solo pide ofertas remotas que se pueden
+  # tomar desde el país base (perfil.pais_base).
+  - tipo: himalayas
+    nombre: himalayas
+    # Las consultas van por orden de importancia: si Himalayas corta por límite
+    # de pedidos, se conserva lo leído hasta ese momento.
+    consultas: [google ads, ppc, paid media]
+    dias_max: 30
+    paginas_max: 1   # por consulta (20 ofertas por página)
+    activa: true
+  # Jobicy: API pública sin cuenta. Pide pocas consultas por día:
+  # cada corrida gasta regiones × consultas = 4.
+  - tipo: jobicy
+    nombre: jobicy
+    regiones: [latam, argentina]
+    consultas: [google ads, ppc]
+    dias_max: 30
+    activa: true
+  # Remotive: API pública sin cuenta. Máximo ~4 consultas por día:
+  # con 2 consultas y 2 corridas diarias queda justo en el límite.
+  - tipo: remotive
+    nombre: remotive
+    consultas: [google ads, ppc]
+    dias_max: 30
+    activa: true
   # Alertas por correo de portales argentinos, leídas de Gmail en modo solo lectura.
   # Se activa sola cuando existen GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET y
   # GMAIL_REFRESH_TOKEN (ver docs/guia-gmail.md).
   - tipo: gmail
     nombre: alertas
-    remitentes: [bumeran.com.ar, zonajobs.com.ar, computrabajo.com, indeed.com]
+    remitentes: [bumeran.com.ar, zonajobs.com.ar, computrabajo.com, indeed.com,
+                 workana.com]
     dias: 3          # lee las alertas de los últimos 3 días
     activa: true
   # Adzuna: API oficial (España y México). La cuenta gratuita trae solo 25

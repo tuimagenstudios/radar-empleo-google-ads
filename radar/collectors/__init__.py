@@ -9,7 +9,10 @@ from radar.collectors.adzuna import AdzunaCollector
 from radar.collectors.base import Collector
 from radar.collectors.getonbrd import GetOnBoardCollector
 from radar.collectors.gmail import GmailCollector
+from radar.collectors.himalayas import HimalayasCollector
+from radar.collectors.jobicy import JobicyCollector
 from radar.collectors.muestra import MuestraCollector
+from radar.collectors.remotive import RemotiveCollector
 from radar.config import Config
 
 log = logging.getLogger("radar")
@@ -19,6 +22,9 @@ TIPOS: dict[str, type[Collector]] = {
     "getonbrd": GetOnBoardCollector,
     "adzuna": AdzunaCollector,
     "gmail": GmailCollector,
+    "himalayas": HimalayasCollector,
+    "jobicy": JobicyCollector,
+    "remotive": RemotiveCollector,
 }
 
 
