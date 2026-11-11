@@ -14,8 +14,10 @@ El refresh token se obtiene una sola vez con `python -m radar.gmail_auth`.
 from __future__ import annotations
 
 import base64
+import html as html_lib
 import logging
 import os
+import re
 from collections.abc import Callable
 from dataclasses import dataclass
 
@@ -42,9 +44,53 @@ class Correo:
 
 Analizador = Callable[[Correo, str], list[RawJob]]
 
+def _texto(fragmento: str) -> str:
+    sin_etiquetas = re.sub(r"<[^>]+>", " ", fragmento)
+    return html_lib.unescape(re.sub(r"\s+", " ", sin_etiquetas)).strip()
+
+
+def analizar_bumeran(correo: Correo, fuente: str) -> list[RawJob]:
+    """Las alertas de Bumeran traen una tarjeta por aviso: <a href> con un <h3> (título) y,
+    debajo, párrafos con empresa, lugar, carga horaria y modalidad (RF-REC-03)."""
+    ofertas: list[RawJob] = []
+    for h3 in re.finditer(r"<h3[^>]*>(.*?)</h3>", correo.html, flags=re.S):
+        titulo = _texto(h3.group(1))
+        enlaces = re.findall(r'<a[^>]+href="([^"]+)"', correo.html[: h3.start()])
+        if not titulo or not enlaces:
+            continue
+        # La tarjeta termina donde empieza el siguiente <a> o <h3>.
+        resto = correo.html[h3.end():]
+        corte = re.search(r"<a[^>]+href=|<h3", resto)
+        tarjeta = resto[: corte.start()] if corte else resto
+        parrafos = [_texto(p) for p in re.findall(r"<p[^>]*>(.*?)</p>", tarjeta, flags=re.S)]
+        parrafos = [p for p in parrafos if p]
+        empresa = parrafos[0] if parrafos else ""
+        ubicacion = parrafos[1] if len(parrafos) > 1 else ""
+        extras = " · ".join(parrafos[2:4])
+        previo = correo.html[max(0, h3.start() - 1500): h3.start()]
+        publicada = next((_texto(t) for t in re.findall(r"(Publicado[^<]*)<", previo)), "")
+        ofertas.append(RawJob(
+            fuente=fuente, titulo=titulo, url=enlaces[-1], empresa=empresa,
+            ubicacion=ubicacion, descripcion=extras, publicada=publicada,
+            id_externo=f"bumeran:{titulo}:{empresa}",
+        ))
+    return ofertas
+
+
+def analizar_sin_ofertas(correo: Correo, fuente: str) -> list[RawJob]:
+    """Computrabajo solo manda un aviso con la cantidad de vacantes y un botón: no trae las
+    ofertas, así que no hay nada que leer. Se registra y se sigue."""
+    log.info("Correo %s de %s sin ofertas en el cuerpo: se saltea", correo.id,
+             dominio(correo.remitente))
+    return []
+
+
 # dominio del remitente → función que extrae las ofertas del correo.
-# Se completan con correos reales en tests/fixtures/ (RF-REC-03).
-ANALIZADORES: dict[str, Analizador] = {}
+ANALIZADORES: dict[str, Analizador] = {
+    "bumeran.com": analizar_bumeran,
+    "bumeran.com.ar": analizar_bumeran,
+    "computrabajo.com": analizar_sin_ofertas,
+}
 
 
 def dominio(remitente: str) -> str:

@@ -122,7 +122,7 @@ fuentes:
   # GMAIL_REFRESH_TOKEN (ver docs/guia-gmail.md).
   - tipo: gmail
     nombre: alertas
-    remitentes: [bumeran.com.ar, zonajobs.com.ar, computrabajo.com, indeed.com,
+    remitentes: [bumeran.com, bumeran.com.ar, zonajobs.com.ar, computrabajo.com, indeed.com,
                  workana.com]
     dias: 3          # lee las alertas de los últimos 3 días
     activa: true
